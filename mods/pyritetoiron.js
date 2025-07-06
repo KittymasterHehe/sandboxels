@@ -5,6 +5,6 @@ elements.centrifuge_fluid = {
 	behavior: behaviors.LIQUID,
 	category: "liquids",
 	state: "liquid",
-};
+}
 
 
