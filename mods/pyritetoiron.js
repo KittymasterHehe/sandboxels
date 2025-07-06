@@ -1,7 +1,7 @@
-// Pyrite centrifuge separation mod
+// Pyrite + Centrifuge Fluid separation mod
 
 if (enabledMods.includes("mods/chem.js")) {
-  // Ensure molten_pyrite exists
+  // Create molten_pyrite if it doesn't already exist
   if (!elements.molten_pyrite) {
     elements.molten_pyrite = {
       color: "#cc9900",
@@ -18,33 +18,33 @@ if (enabledMods.includes("mods/chem.js")) {
     };
   }
 
-  // Add the centrifuge_machine if it doesn't exist
-  if (!elements.centrifuge_machine) {
-    elements.centrifuge_machine = {
-      color: ["#888888", "#777777", "#999999"],
-      behavior: behaviors.SOLID,
-      category: "machines",
-      state: "solid",
-      temp: 20,
-      conduct: 1,
-    };
-  }
+  // Create the new centrifuge_fluid element
+  elements.centrifuge_fluid = {
+    color: "#00ffff",
+    behavior: behaviors.LIQUID,
+    category: "liquids",
+    state: "liquid",
+    temp: 25,
+    density: 1100,
+    conduct: 0.1,
+    viscosity: 100,
+    desc: "Special fluid used to separate molten pyrite into molten iron and sulfur.",
+  };
 
-  // Define reaction between molten_pyrite and centrifuge_machine
+  // Add reaction: molten_pyrite + centrifuge_fluid → molten_iron + sulfur
   elements.molten_pyrite.reactions.push({
     elem1: "molten_pyrite",
-    elem2: "centrifuge_machine",
+    elem2: "centrifuge_fluid",
     chance: 1.0,
     func: function(px, py, thisElem, otherElem) {
-      // Remove molten_pyrite
       deletePixel(px, py);
-      // Create molten_iron and sulfur nearby
       tryCreatePixel("molten_iron", px + 1, py);
       tryCreatePixel("sulfur", px - 1, py);
     }
   });
 
-  console.log("✅ Pyrite centrifuge separation mod loaded!");
+  console.log("✅ Pyrite + Centrifuge Fluid separation mod loaded!");
 } else {
   alert("⚠️ This mod requires chem.js! Please enable it under Mods.");
 }
+
