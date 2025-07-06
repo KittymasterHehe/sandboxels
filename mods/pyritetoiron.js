@@ -1,6 +1,6 @@
 // pyrite_centrifuge_mod.js
 
-elements.methanol = {
+elements.testfluid = {
     color: "#c9c5b1",
     behavior: behaviors.LIQUID,
     reactions: {
